@@ -14649,3 +14649,11 @@ section {
 .vue-lists ul, .vue-lists ol {
     padding-left: 30px;
 }
+
+.show{
+    visibility: visible;
+}
+
+.hidden{
+    visibility: hidden;
+}

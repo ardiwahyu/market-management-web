@@ -7,6 +7,7 @@ const package = require("./package.json");
 module.exports = {
     entry: {
         index: "./src/index.js",
+        item: "./src/item.js",
         vendor: Object.keys(package.dependencies),
     },
     output: {
@@ -33,6 +34,11 @@ module.exports = {
             template: "./src/index.html",
             filename: "index.html",
             chunks: ["vendor", "index"]
+        }),
+        new HtmlWebpackPlugin({
+            template: "./src/item.html",
+            filename: "item.html",
+            chunks: ["vendor", "item"]
         })
     ]
 };
