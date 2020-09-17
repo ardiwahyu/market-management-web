@@ -8,16 +8,62 @@ const search = url.searchParams.get("search");
 const showInfo = document.querySelector('#show-info');
 const tBody = document.querySelector('tbody');
 
+let dataTable = [];
+
 const getProduct = async (query) => {
     let result;
     if (query != null) {
         result = await apiServices.searchProduct(query);
-        console.log(result);
     } else {
         result = await apiServices.getProduct(page);
     }
+    dataTable = dataTable.concat(result.data);
+    renderResult(dataTable);
+    pagination(result.page, result.total_page, window.location.origin);
+
+    showInfo.innerHTML = `Show ${result.data.length} from ${result.total_entry}`;
+
+    //render unit
+    const units = await localServices.getUnit();
+    let innerUnit = '';
+    units.forEach(element => {
+        innerUnit = innerUnit + `<option value="${element.id}">${element.name}</option>`
+    })
+    document.querySelector('#unit-add').innerHTML = innerUnit;
+    document.querySelector('#unit-edit').innerHTML = innerUnit;
+}
+
+const addProduct = async (params) => {
+    let resultAdd;
+    resultAdd = await apiServices.addProduct(params);
+    if (resultAdd.success) {
+        $('#tambahBarangModal').modal('toggle');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (search != null || search != "") {
+        getProduct(search);
+    } else {
+        getProduct();
+    }
+
+    document.getElementById('btn-add').addEventListener('click', () => {
+        if (cekValidForm('#name-add', '#qyt-add', '#buy-add', '#sale-add')) {
+            addProduct({
+                name: $('#name-add').val(),
+                qyt: parseInt($('#qyt-add').val()),
+                unit_id: parseInt($('#unit-add').val()),
+                price_buy: parseInt($('#buy-add').val()),
+                price_sale: parseInt($('#sale-add').val())
+            });
+        }
+    });
+});
+
+function renderResult(result) {
     let inner = '';
-    result.data.forEach(element => {
+    result.forEach(element => {
         inner = inner + `
                 <tr class="tr-shadow">
                 <td id="name${element.id}">${element.name}</td>
@@ -39,25 +85,37 @@ const getProduct = async (query) => {
             `
     });
     tBody.innerHTML = inner;
-    pagination(result.page, result.total_page, window.location.origin);
-
-    showInfo.innerHTML = `Show ${result.data.length} from ${result.total_entry}`;
-
-    //render unit
-    const units = await localServices.getUnit();
-    let innerUnit = '';
-    units.forEach(element => {
-        innerUnit = innerUnit + `<option value="${element.id}">${element.name}</option>`
-    })
-    document.querySelector('#unit-add').innerHTML = innerUnit;
-    document.querySelector('#unit-edit').innerHTML = innerUnit;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (search != null || search != "") {
-        getProduct(search);
+function cekValidForm(field1, field2, field3, field4) {
+    let isValid = false;
+    if ($(field1).val() == "") {
+        $(field1).addClass("is-invalid");
+        isValid = false;
     } else {
-        getProduct();
+        $(field1).removeClass("is-invalid");
+        isValid = true;
     }
-});
-
+    if ($(field2).val() == "") {
+        $(field2).addClass("is-invalid");
+        isValid = false;
+    } else {
+        $(field2).removeClass("is-invalid");
+        isValid = true;
+    }
+    if ($(field3).val() == "") {
+        $(field3).addClass("is-invalid");
+        isValid = false;
+    } else {
+        $(field3).removeClass("is-invalid");
+        isValid = true;
+    }
+    if ($(field4).val() == "") {
+        $(field4).addClass("is-invalid");
+        isValid = false;
+    } else {
+        $(field4).removeClass("is-invalid");
+        isValid = true;
+    }
+    return isValid;
+}

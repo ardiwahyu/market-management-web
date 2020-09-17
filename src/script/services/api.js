@@ -1,8 +1,9 @@
 import LocalServices from './local';
 import { BASE_URL, PORT } from './config';
+import URLSearchParams from 'url-search-params';
 
 function status(response) {
-    if (response.status !== 200) {
+    if (response.status >= 400) {
         return Promise.reject(response);
     } else {
         return Promise.resolve(response);
@@ -69,6 +70,28 @@ class ApiServices {
                     resolve(data);
                 })
                 .catch(error);
+        })
+    }
+
+    static async addProduct(bodyJson) {
+        const searchParams = new URLSearchParams();
+        for (let data in bodyJson) {
+            searchParams.set(data, bodyJson[data]);
+        }
+        return new Promise((resolve, reject) => {
+            const url = `${BASE_URL}:${PORT}/api/v1/product`;
+            fetch(url, {
+                method: 'post',
+                body: searchParams
+            })
+                .then(status)
+                .then(json)
+                .then(function (data) {
+                    resolve(data);
+                })
+                .catch(function (data) {
+                    reject(data);
+                });
         })
     }
 }
