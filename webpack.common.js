@@ -6,8 +6,8 @@ const package = require("./package.json");
 
 module.exports = {
     entry: {
-        index: "./src/index.js",
-        item: "./src/item.js",
+        index: "./src/script/index.js",
+        item: "./src/script/item.js",
         vendor: Object.keys(package.dependencies),
     },
     output: {

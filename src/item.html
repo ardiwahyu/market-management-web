@@ -202,7 +202,7 @@
                 <!-- END MAIN CONTENT-->
                 <!-- END PAGE CONTAINER-->
 
-                <!-- Modal-->
+                <!-- Modal tambah-->
                 <div class="modal fade" id="tambahBarangModal" tabindex="-1" role="dialog"
                     aria-labelledby="tambahBarangModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -287,7 +287,94 @@
                         </div>
                     </div>
                 </div>
-                <!-- end modal-->
+                <!-- end Modal tambah-->
+
+                <!-- Modal edit-->
+                <div class="modal fade" id="editBarangModal" tabindex="-1" role="dialog"
+                    aria-labelledby="editBarangModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editBarangModal">Ubah Barang</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="post" class="form-horizontal">
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Nama barang</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <input type="text" id="name-edit" name="input-small" placeholder=""
+                                                class="input-sm form-control-sm form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Banyak barang</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <input type="number" id="qyt-edit" name="input-small" placeholder=""
+                                                class="input-sm form-control-sm form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Satuan</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <select name="selectSm" id="SelectLm" class="form-control-sm form-control">
+                                                <option value="0">Kilogram</option>
+                                                <option value="1">Ons</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Harga beli</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i>Rp</i>
+                                                </div>
+                                                <input type="number" id="buy-edit" name="input3-group1" placeholder="0"
+                                                    class="form-control">
+                                                <div class="input-group-addon">,00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Harga jual</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i>Rp</i>
+                                                </div>
+                                                <input type="number" id="sale-edit" name="input3-group1" placeholder="0"
+                                                    class="form-control">
+                                                <div class="input-group-addon">,00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-dot-circle-o"></i> Simpan
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
+                                    <i class="fa fa-ban"></i> Tutup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Modal edit-->
             </div>
         </div>
     </div>
@@ -316,7 +403,17 @@
 
     <!-- Main JS-->
     <script src="src/default/js/main.js"></script>
-
+    <script>
+        function showModal(id) {
+            console.log($('#name-edit'));
+            $('#name-edit').val($(`#name${id}`).html());
+            $('#qyt-edit').val($(`#qyt${id}`).html());
+            //satuan
+            $('#buy-edit').val($(`#buy${id}`).html().replace("Rp", "").replace(",00", "").replace(".", ""));
+            $('#sale-edit').val($(`#sale${id}`).html().replace("Rp", "").replace(",00", "").replace(".", ""));
+            $(`#editBarangModal`).modal('show');
+        }
+    </script>
 </body>
 
 </html>
