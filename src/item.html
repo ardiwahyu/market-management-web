@@ -371,6 +371,34 @@
                     </div>
                 </div>
                 <!-- end Modal edit-->
+
+                <!-- Modal delete-->
+                <div class="modal fade" id="deleteBarangModal" tabindex="-1" role="dialog"
+                    aria-labelledby="editBarangModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-danger" id="editBarangModal">Peringatan!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="text-warning"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash-alt"></i> Hapus
+                                </button>
+                                <button type="reset" class="btn btn-success btn-sm" data-dismiss="modal">
+                                    <i class="fa fa-ban"></i> Batal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Modal delete-->
+
             </div>
         </div>
     </div>
@@ -409,6 +437,11 @@
             $('#buy-edit').val($(`#buy${id}`).html().replace("Rp", "").replace(",00", "").replace(".", ""));
             $('#sale-edit').val($(`#sale${id}`).html().replace("Rp", "").replace(",00", "").replace(".", ""));
             $(`#editBarangModal`).modal('show');
+        }
+
+        function showWarning(id) {
+            $('#text-warning').html(`Apakah anda yakin akan menghapus <span class="font-weight-bold text-primary">${$(`#name${id}`).html()}</span> ?`);
+            $(`#deleteBarangModal`).modal('show');
         }
     </script>
 </body>

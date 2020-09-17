@@ -27,10 +27,10 @@ const getProduct = async (query) => {
                 <td id="sale${element.id}">Rp${element.price_sale.replace('$', '').replace('.00', ',00').replace(',', '.')}</td>
                 <td>
                     <div class="table-data-feature">
-                        <button class="item" data-toggle="tooltip modal" data-target="#tambahBarangModal" data-placement="top" title="Ubah" onclick="showModal(${element.id})">
+                        <button class="item" data-toggle="tooltip" data-placement="top" title="Ubah" onclick="showModal(${element.id})">
                             <i class="zmdi zmdi-edit"></i>
                         </button>
-                        <button class="item" data-toggle="tooltip" data-placement="top" title="Hapus">
+                        <button class="item" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="showWarning(${element.id})">
                             <i class="zmdi zmdi-delete"></i>
                         </button>
                     </div>
