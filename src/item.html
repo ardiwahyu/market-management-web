@@ -220,7 +220,7 @@
                                             <label for="input-small" class=" form-control-label">Nama barang</label>
                                         </div>
                                         <div class="col col-sm-6">
-                                            <input type="text" id="input-small" name="input-small" placeholder=""
+                                            <input type="text" id="name-add" name="input-small" placeholder=""
                                                 class="input-sm form-control-sm form-control">
                                         </div>
                                     </div>
@@ -229,7 +229,7 @@
                                             <label for="input-small" class=" form-control-label">Banyak barang</label>
                                         </div>
                                         <div class="col col-sm-6">
-                                            <input type="number" id="input-small" name="input-small" placeholder=""
+                                            <input type="number" id="qyt-add" name="input-small" placeholder=""
                                                 class="input-sm form-control-sm form-control">
                                         </div>
                                     </div>
@@ -238,9 +238,7 @@
                                             <label for="input-small" class=" form-control-label">Satuan</label>
                                         </div>
                                         <div class="col col-sm-6">
-                                            <select name="selectSm" id="SelectLm" class="form-control-sm form-control">
-                                                <option value="0">Kilogram</option>
-                                                <option value="1">Ons</option>
+                                            <select name="selectSm" id="unit-add" class="form-control-sm form-control">
                                             </select>
                                         </div>
                                     </div>
@@ -253,8 +251,8 @@
                                                 <div class="input-group-addon">
                                                     <i>Rp</i>
                                                 </div>
-                                                <input type="number" id="input3-group1" name="input3-group1"
-                                                    placeholder="0" class="form-control">
+                                                <input type="number" id="buy-add" name="input3-group1" placeholder="0"
+                                                    class="form-control">
                                                 <div class="input-group-addon">,00</div>
                                             </div>
                                         </div>
@@ -268,8 +266,8 @@
                                                 <div class="input-group-addon">
                                                     <i>Rp</i>
                                                 </div>
-                                                <input type="number" id="input3-group1" name="input3-group1"
-                                                    placeholder="0" class="form-control">
+                                                <input type="number" id="sale-add" name="input3-group1" placeholder="0"
+                                                    class="form-control">
                                                 <div class="input-group-addon">,00</div>
                                             </div>
                                         </div>
@@ -325,9 +323,7 @@
                                             <label for="input-small" class=" form-control-label">Satuan</label>
                                         </div>
                                         <div class="col col-sm-6">
-                                            <select name="selectSm" id="SelectLm" class="form-control-sm form-control">
-                                                <option value="0">Kilogram</option>
-                                                <option value="1">Ons</option>
+                                            <select name="selectSm" id="unit-edit" class="form-control-sm form-control">
                                             </select>
                                         </div>
                                     </div>
@@ -405,10 +401,11 @@
     <script src="src/default/js/main.js"></script>
     <script>
         function showModal(id) {
-            console.log($('#name-edit'));
             $('#name-edit').val($(`#name${id}`).html());
             $('#qyt-edit').val($(`#qyt${id}`).html());
-            //satuan
+            $("#unit-edit option").filter(function () {
+                return this.text == $(`#unit${id}`).html();
+            }).prop('selected', true);
             $('#buy-edit').val($(`#buy${id}`).html().replace("Rp", "").replace(",00", "").replace(".", ""));
             $('#sale-edit').val($(`#sale${id}`).html().replace("Rp", "").replace(",00", "").replace(".", ""));
             $(`#editBarangModal`).modal('show');

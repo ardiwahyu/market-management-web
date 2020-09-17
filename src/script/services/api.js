@@ -1,8 +1,9 @@
-import { BASE_URL, PORT } from '../config.js';
+import LocalServices from './local';
+import { BASE_URL, PORT } from './config';
 
 function status(response) {
     if (response.status !== 200) {
-        return Promise.reject(new Error(response.statusText));
+        return Promise.reject(response);
     } else {
         return Promise.resolve(response);
     }
@@ -13,7 +14,7 @@ function json(response) {
 }
 
 function error(error) {
-    console.log("Error : " + error);
+    return error.json();
 }
 
 class ApiServices {
@@ -26,6 +27,20 @@ class ApiServices {
                 .then(json)
                 .then(function (data) {
                     resolve(data);
+                })
+                .catch(error);
+        })
+    }
+
+    static async getUnit() {
+        return new Promise((resolve, reject) => {
+            const url = `${BASE_URL}:${PORT}/api/v1/config/unit`;
+            fetch(url)
+                .then(status)
+                .then(json)
+                .then(function (data) {
+                    console.log(data.data);
+                    LocalServices.saveUnit(data.data);
                 })
                 .catch(error);
         })

@@ -1,4 +1,4 @@
-import apiServices from './api-services';
+import apiServices from './services/api';
 const dateFormat = require('dateformat');
 import setChart from './component/chart-controller';
 
@@ -10,6 +10,9 @@ const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", 
 const data = []; data.length = 31; data.fill(0);
 
 const getOverview = async () => {
+    //load unit
+    apiServices.getUnit();
+
     const result = await apiServices.getOverview();
     if (result.success) {
         if (result.data.harian != null) {

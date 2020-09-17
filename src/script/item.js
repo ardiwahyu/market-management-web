@@ -1,4 +1,5 @@
-import apiServices from './api-services';
+import apiServices from './services/api';
+import localServices from './services/local';
 import pagination from './component/pagination.js';
 
 const url = new URL(window.location.href);
@@ -41,6 +42,15 @@ const getProduct = async (query) => {
     pagination(result.page, result.total_page, window.location.origin);
 
     showInfo.innerHTML = `Show ${result.data.length} from ${result.total_entry}`;
+
+    //render unit
+    const units = await localServices.getUnit();
+    let innerUnit = '';
+    units.forEach(element => {
+        innerUnit = innerUnit + `<option value="${element.id}">${element.name}</option>`
+    })
+    document.querySelector('#unit-add').innerHTML = innerUnit;
+    document.querySelector('#unit-edit').innerHTML = innerUnit;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
