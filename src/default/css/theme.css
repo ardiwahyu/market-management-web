@@ -14657,3 +14657,7 @@ section {
 .hidden{
     visibility: hidden;
 }
+
+.alert {
+    display:inline-block;
+}

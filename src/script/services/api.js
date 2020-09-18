@@ -1,6 +1,7 @@
 import LocalServices from './local';
 import { BASE_URL, PORT } from './config';
 import URLSearchParams from 'url-search-params';
+import { get } from 'jquery';
 
 function status(response) {
     if (response.status >= 400) {
@@ -129,6 +130,28 @@ class ApiServices {
             const url = `${BASE_URL}:${PORT}/api/v1/product/delete/${id}`;
             fetch(url, {
                 method: 'delete'
+            })
+                .then(status)
+                .then(json)
+                .then(function (data) {
+                    resolve(data);
+                })
+                .catch(function (data) {
+                    reject(data);
+                });
+        })
+    }
+
+    static async addUnit(bodyAdd, bodyRemove) {
+        const searchParams = new URLSearchParams();
+        searchParams.set("add", bodyAdd);
+        searchParams.set("remove", bodyRemove);
+
+        return new Promise((resolve, reject) => {
+            const url = `${BASE_URL}:${PORT}/api/v1/config/unit`;
+            fetch(url, {
+                method: 'post',
+                body: searchParams
             })
                 .then(status)
                 .then(json)

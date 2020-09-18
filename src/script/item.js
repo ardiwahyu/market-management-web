@@ -1,15 +1,17 @@
 import apiServices from './services/api';
 import localServices from './services/local';
 import pagination from './component/pagination.js';
-import { get } from 'jquery';
 
 const url = new URL(window.location.href);
 const page = url.searchParams.get("page");
 const search = url.searchParams.get("search");
 const showInfo = document.querySelector('#show-info');
 const tBody = document.querySelector('tbody');
-
+let units;
 let dataTable = [];
+
+//load unit
+apiServices.getUnit();
 
 const getProduct = async (query) => {
     let result;
@@ -25,7 +27,7 @@ const getProduct = async (query) => {
     showInfo.innerHTML = `Show ${result.data.length} from ${result.total_entry}`;
 
     //render unit
-    const units = await localServices.getUnit();
+    units = await localServices.getUnit();
     let innerUnit = '';
     units.forEach(element => {
         innerUnit = innerUnit + `<option value="${element.id}">${element.name}</option>`
@@ -85,6 +87,23 @@ const deleteProduct = async (id) => {
     }
 }
 
+const addUnit = async (bodyAdd, bodyRemove) => {
+    let resultAddUnit;
+    try {
+        resultAddUnit = await apiServices.addUnit(bodyAdd, bodyRemove);
+        if (resultAddUnit.success) {
+            $('#text-success').html('Berhasil memperbarui unit, segarkan halaman untuk melihat hasilnya!');
+            $('#btn-refresh').click(function () {
+                window.location.href = `${window.location.origin}/item.html`;
+            });
+            $('#successModal').modal('show');
+        }
+    } catch (error) {
+        $('#text-gagal').html('Gagal memperbarui unit, Internal Server Error!')
+        $('#gagalModal').modal('show');
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     if (search != null || search != "") {
         getProduct(search);
@@ -118,6 +137,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById('btn-delete').addEventListener('click', () => {
         deleteProduct($('#btn-delete').parent().attr('id'));
+    });
+
+    document.getElementById('btn-set-unit').addEventListener('click', async () => {
+        let innerUnit = '';
+        units.forEach(element => {
+            innerUnit = innerUnit + `
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <div id="name-unit">${element.name}</div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `
+        });
+        $('#list-unit').html(innerUnit);
+    });
+
+    document.getElementById('btn-add-unit').addEventListener('click', () => {
+        const value = $('#input-unit').val();
+        if (value.trim() !== "") {
+            $('#list-unit').html($('#list-unit').html() + `
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <div id="name-unit">${value}</div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `);
+            $('#input-unit').val("");
+        }
+    });
+
+    document.getElementById('btn-save-unit').addEventListener('click', () => {
+        const nameAdd = []; const idRemove = [];
+        const nameUnit = units.map(a => a.name);
+        let nameUnitInner = []
+
+        document.querySelectorAll('#name-unit').forEach(element => {
+            if (!nameUnit.includes(element.innerHTML)) {
+                nameAdd.push(element.innerHTML);
+            }
+            nameUnitInner.push(element.innerHTML);
+        });
+        units.forEach(element => {
+            if (!nameUnitInner.includes(element.name)) {
+                idRemove.push(element.id)
+            }
+        })
+        addUnit(nameAdd.join(), idRemove.join());
     });
 });
 

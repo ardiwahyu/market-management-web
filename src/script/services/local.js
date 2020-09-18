@@ -11,6 +11,8 @@ class LocalServices {
     static async saveUnit(units) {
         const db = await dbPromised();
         const tx = db.transaction("units", "readwrite");
+        const store = tx.objectStore("units");
+        store.clear();
         units.forEach(element => {
             db.add('units', element);
         });

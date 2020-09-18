@@ -168,6 +168,9 @@
                                         <button class="au-btn au-btn-icon au-btn--green au-btn--small"
                                             data-toggle="modal" data-target="#tambahBarangModal">
                                             <i class="zmdi zmdi-plus"></i>Tambah barang</button>
+                                        <button class="au-btn au-btn-icon au-btn--blue2 au-btn--small"
+                                            data-toggle="modal" data-target="#satuanModal" id="btn-set-unit">
+                                            <i class="zmdi zmdi-settings"></i>Atur satuan</button>
                                     </div>
                                 </div>
                                 <div class="table-responsive table--no-card mb-4">
@@ -452,6 +455,41 @@
                     </div>
                 </div>
                 <!-- end Modal sukses-->
+
+                <!-- Modal unit-->
+                <div class="modal fade" id="satuanModal" tabindex="-1" role="dialog" aria-labelledby="satuanModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Atur Satuan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="list-unit"></div>
+                                <form class="form-header" action="javascript:void(0)" id="form-unit">
+                                    <input id="input-unit" class="au-input au-input--full" type="text"
+                                        placeholder="Masukkan nama satuan..." />
+                                    <button class="au-btn--submit" id="btn-add-unit">
+                                        <i class="zmdi zmdi-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" id="btn-save-unit"
+                                    data-dismiss="modal">
+                                    <i class="fa fa-save"></i> Simpan
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
+                                    <i class="fa fa-ban"></i> Tutup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Modal unit-->
             </div>
         </div>
     </div>
