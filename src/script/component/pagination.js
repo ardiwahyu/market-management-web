@@ -86,8 +86,8 @@ function pagination(pageNow, totalPage, base) {
         const next = document.querySelector("#next");
         const prev = document.querySelector("#previous");
         if (pageNow == 1) {
-            // prev.classList.add("disabled");
-            // next.classList.remove("disabled");
+            prev.classList.add("disabled");
+            next.classList.remove("disabled");
         } else if (pageNow == totalPage) {
             prev.classList.remove("disabled");
             next.classList.add("disabled");

@@ -1,6 +1,7 @@
 import apiServices from './services/api';
 import localServices from './services/local';
 import pagination from './component/pagination.js';
+import { get } from 'jquery';
 
 const url = new URL(window.location.href);
 const page = url.searchParams.get("page");
@@ -19,7 +20,7 @@ const getProduct = async (query) => {
     }
     dataTable = dataTable.concat(result.data);
     renderResult(dataTable);
-    pagination(result.page, result.total_page, window.location.origin);
+    pagination(result.page || 1, result.total_page || 1, window.location.origin);
 
     showInfo.innerHTML = `Show ${result.data.length} from ${result.total_entry}`;
 
@@ -35,9 +36,52 @@ const getProduct = async (query) => {
 
 const addProduct = async (params) => {
     let resultAdd;
-    resultAdd = await apiServices.addProduct(params);
-    if (resultAdd.success) {
-        $('#tambahBarangModal').modal('toggle');
+    try {
+        resultAdd = await apiServices.addProduct(params);
+        if (resultAdd.success) {
+            $('#text-success').html('Berhasil menambahkan barang, segarkan halaman untuk melihat hasilnya!');
+            $('#btn-refresh').click(function () {
+                window.location.href = `${window.location.origin}/item.html`;
+            });
+            $('#successModal').modal('show');
+        }
+    } catch (error) {
+        $('#text-gagal').html('Gagal menambahkan barang, nama barang telah tersedia!')
+        $('#gagalModal').modal('show');
+    }
+}
+
+const editProduct = async (id, params) => {
+    let resultEdit;
+    try {
+        resultEdit = await apiServices.editProduct(id, params);
+        if (resultEdit.success) {
+            $('#text-success').html('Berhasil mengubah data barang, segarkan halaman untuk melihat hasilnya!');
+            $('#btn-refresh').click(function () {
+                window.location.href = `${window.location.origin}/item.html`;
+            });
+            $('#successModal').modal('show');
+        }
+    } catch (error) {
+        $('#text-gagal').html('Gagal mengubah data barang, nama barang mungkin telah tersedia!')
+        $('#gagalModal').modal('show');
+    }
+}
+
+const deleteProduct = async (id) => {
+    let resultDelete;
+    try {
+        resultDelete = await apiServices.deleteProduct(id);
+        if (resultDelete.success) {
+            $('#text-success').html('Berhasil menghapus barang, segarkan halaman untuk melihat hasilnya!');
+            $('#btn-refresh').click(function () {
+                window.location.href = `${window.location.origin}/item.html`;
+            });
+            $('#successModal').modal('show');
+        }
+    } catch (error) {
+        $('#text-gagal').html('Gagal menghapus barang, Internal Server Error!')
+        $('#gagalModal').modal('show');
     }
 }
 
@@ -58,6 +102,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 price_sale: parseInt($('#sale-add').val())
             });
         }
+    });
+
+    document.getElementById('btn-edit').addEventListener('click', () => {
+        if (cekValidForm('#name-edit', '#qyt-edit', '#buy-edit', '#sale-edit')) {
+            editProduct($('#btn-edit').parent().attr('id'), {
+                name: $('#name-edit').val(),
+                qyt: parseInt($('#qyt-edit').val()),
+                unit_id: parseInt($('#unit-edit').val()),
+                price_buy: parseInt($('#buy-edit').val()),
+                price_sale: parseInt($('#sale-edit').val())
+            });
+        }
+    });
+
+    document.getElementById('btn-delete').addEventListener('click', () => {
+        deleteProduct($('#btn-delete').parent().attr('id'));
     });
 });
 
