@@ -19,10 +19,12 @@
   "homepage": "https://github.com/ardiwahyu/market-management-web#readme",
   "dependencies": {
     "bootstrap": "^4.5.2",
+    "bootstrap-select": "^1.13.18",
     "dateformat": "^3.0.3",
     "idb": "^5.0.6",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
+    "select2": "^4.0.13",
     "serviceworker-webpack-plugin": "^1.0.1",
     "url-search-params": "^1.1.0"
   },

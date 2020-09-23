@@ -14661,3 +14661,7 @@ section {
 .alert {
     display:inline-block;
 }
+
+.select2 {
+    width:100%!important;
+}

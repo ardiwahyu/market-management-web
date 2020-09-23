@@ -66,6 +66,21 @@ class ApiServices {
         })
     }
 
+    static async getAllProduct() {
+        return new Promise((resolve, reject) => {
+            const url = `${BASE_URL}:${PORT}/api/v1/product/all`;
+            fetch(url)
+                .then(status)
+                .then(json)
+                .then(function (data) {
+                    LocalServices.saveItem(data.data);
+                })
+                .catch(function (data) {
+                    reject(data);
+                });
+        })
+    }
+
     static async searchProduct(search) {
         return new Promise((resolve, reject) => {
             const url = `${BASE_URL}:${PORT}/api/v1/product/search?name=${search}`;

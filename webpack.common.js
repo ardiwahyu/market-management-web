@@ -8,6 +8,7 @@ module.exports = {
     entry: {
         index: "./src/script/index.js",
         item: "./src/script/item.js",
+        jual: "./src/script/jual.js",
         vendor: Object.keys(package.dependencies),
     },
     output: {
@@ -39,6 +40,11 @@ module.exports = {
             template: "./src/item.html",
             filename: "item.html",
             chunks: ["vendor", "item"]
+        }),
+        new HtmlWebpackPlugin({
+            template: "./src/jual.html",
+            filename: "jual.html",
+            chunks: ["vendor", "jual"]
         })
     ]
 };

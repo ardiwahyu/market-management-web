@@ -4,6 +4,7 @@ function dbPromised() {
     return openDB('market-management', 1, {
         upgrade(db) {
             db.createObjectStore('units', { keyPath: 'id' });
+            db.createObjectStore('items', { keyPath: 'id' });
         }
     });
 }
@@ -23,6 +24,24 @@ class LocalServices {
         const db = await dbPromised();
         const tx = db.transaction("units", "readonly");
         const store = tx.objectStore("units");
+        return store.getAll();
+    }
+
+    static async saveItem(items) {
+        const db = await dbPromised();
+        const tx = db.transaction("items", "readwrite");
+        const store = tx.objectStore("items");
+        store.clear();
+        items.forEach(element => {
+            db.add('items', element);
+        });
+        return tx.complete;
+    }
+
+    static async getItem() {
+        const db = await dbPromised();
+        const tx = db.transaction("items", "readonly");
+        const store = tx.objectStore("items");
         return store.getAll();
     }
 }

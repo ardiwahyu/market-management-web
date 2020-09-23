@@ -8,7 +8,7 @@
     <meta name="author" content="Wahyu Ardiansyah">
 
     <!-- Title Page-->
-    <title>Daftar Barang</title>
+    <title>Pencatatan Penjualan</title>
 
     <!-- Fontfaces CSS-->
     <link href="src/default/css/font-face.css" rel="stylesheet" media="all">
@@ -59,12 +59,12 @@
                             <a href="index.html">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="item.html">
                                 <i class="fas fa-table"></i>Daftar Barang</a>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li class="active">
+                            <a href="jual.html">
                                 <i class="fas fa-money-bill-alt"></i>Jual</a>
                         </li>
                         <li>
@@ -103,12 +103,12 @@
                             <a href="index.html">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="item.html">
                                 <i class="fas fa-table"></i>Daftar Barang</a>
                         </li>
-                        <li>
-                            <a href="jual.html">
+                        <li class="active">
+                            <a href="#">
                                 <i class="fas fa-money-bill-alt"></i>Jual</a>
                         </li>
                         <li>
@@ -156,21 +156,16 @@
                                 <!-- DATA TABLE -->
                                 <div class="table-data__tool">
                                     <div class="table-data__tool-left">
-                                        <form class="form-header" action="" id="form-search" method="GET">
-                                            <input id="input-search" class="au-input au-input--style2" type="text"
-                                                name="search" placeholder="Cari barang..." />
-                                            <button class="au-btn--submit" type="submit">
-                                                <i class="zmdi zmdi-search"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="table-data__tool-right">
                                         <button class="au-btn au-btn-icon au-btn--green au-btn--small"
                                             data-toggle="modal" data-target="#tambahBarangModal">
-                                            <i class="zmdi zmdi-plus"></i>Tambah barang</button>
-                                        <button class="au-btn au-btn-icon au-btn--blue2 au-btn--small"
-                                            data-toggle="modal" data-target="#satuanModal" id="btn-set-unit">
-                                            <i class="zmdi zmdi-settings"></i>Atur satuan</button>
+                                            <i class="zmdi zmdi-plus"></i>Tambah</button>
+                                        <button class="au-btn au-btn-icon au-btn--blue au-btn--small"
+                                            data-toggle="modal" data-target="#tambahBarangModal">
+                                            <i class="zmdi zmdi-save"></i>Simpan</button>
+                                    </div>
+                                    <div class="table-data__tool-right">
+                                        <p class="text-md-right font-weight-bold">Total</p>
+                                        <h1 id="total" class="text-info">Rp0,00</h1>
                                     </div>
                                 </div>
                                 <div class="table-responsive table--no-card mb-4">
@@ -180,8 +175,9 @@
                                                 <th>Nama barang</th>
                                                 <th>Banyak</th>
                                                 <th>Satuan</th>
-                                                <th>Harga beli</th>
-                                                <th>Harga jual</th>
+                                                <th>Harga</th>
+                                                <th>Diskon</th>
+                                                <th>Total</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -211,7 +207,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="tambahBarangModalLabel">Tambah Barang</h5>
+                                <h5 class="modal-title" id="tambahBarangModalLabel">Tambah Pembelian</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -223,8 +219,10 @@
                                             <label for="input-small" class=" form-control-label">Nama barang</label>
                                         </div>
                                         <div class="col col-sm-6">
-                                            <input type="text" id="name-add" name="input-small" placeholder=""
-                                                class="input-sm form-control-sm form-control">
+                                            <select id="name-add"
+                                                class="form-control-sm form-control js-example-basic-single">
+                                                <option value="-1" selected>Pilih nama barang...</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -232,45 +230,38 @@
                                             <label for="input-small" class=" form-control-label">Banyak barang</label>
                                         </div>
                                         <div class="col col-sm-6">
-                                            <input type="number" id="qyt-add" name="input-small" placeholder="" min="0"
-                                                class="input-sm form-control-sm form-control">
+                                            <input type="number" id="qyt-add" name="input-small" value="1" min="1"
+                                                placeholder="" class="input-sm form-control-sm form-control" disabled>
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
                                             <label for="input-small" class=" form-control-label">Satuan</label>
                                         </div>
-                                        <div class="col col-sm-6">
-                                            <select name="selectSm" id="unit-add" class="form-control-sm form-control">
-                                            </select>
+                                        <div class="col col-sm-5">
+                                            <label id="info-unit" for="input-small" class=" form-control-label"></label>
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Harga beli</label>
+                                            <label for="input-small" class=" form-control-label">Harga</label>
+                                        </div>
+                                        <div class="col col-sm-5">
+                                            <label id="info-price" for="input-small"
+                                                class=" form-control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Diskon</label>
                                         </div>
                                         <div class="col col-sm-6">
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i>Rp</i>
                                                 </div>
-                                                <input type="number" id="buy-add" name="input3-group1" placeholder="0"
-                                                    min="0" class="form-control">
-                                                <div class="input-group-addon">,00</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Harga jual</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i>Rp</i>
-                                                </div>
-                                                <input type="number" id="sale-add" name="input3-group1" placeholder="0"
-                                                    min="0" class="form-control">
+                                                <input type="number" id="discount-add" name="input3-group1"
+                                                    placeholder="0" value="0" min="0" class="form-control" disabled>
                                                 <div class="input-group-addon">,00</div>
                                             </div>
                                         </div>
@@ -290,91 +281,6 @@
                     </div>
                 </div>
                 <!-- end Modal tambah-->
-
-                <!-- Modal edit-->
-                <div class="modal fade" id="editBarangModal" tabindex="-1" role="dialog"
-                    aria-labelledby="editBarangModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Ubah Barang</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="" method="post" class="form-horizontal">
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Nama barang</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <input type="text" id="name-edit" name="input-small" placeholder=""
-                                                class="input-sm form-control-sm form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Banyak barang</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <input type="number" id="qyt-edit" name="input-small" placeholder="" min="0"
-                                                class="input-sm form-control-sm form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Satuan</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <select name="selectSm" id="unit-edit" class="form-control-sm form-control">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Harga beli</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i>Rp</i>
-                                                </div>
-                                                <input type="number" id="buy-edit" name="input3-group1" placeholder="0"
-                                                    min="0" class="form-control">
-                                                <div class="input-group-addon">,00</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Harga jual</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i>Rp</i>
-                                                </div>
-                                                <input type="number" id="sale-edit" name="input3-group1" placeholder="0"
-                                                    min="0" class="form-control">
-                                                <div class="input-group-addon">,00</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" id="btn-edit" data-dismiss="modal">
-                                    <i class="fa fa-save"></i> Simpan
-                                </button>
-                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
-                                    <i class="fa fa-ban"></i> Tutup
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end Modal edit-->
 
                 <!-- Modal delete-->
                 <div class="modal fade" id="deleteBarangModal" tabindex="-1" role="dialog"
@@ -455,41 +361,6 @@
                     </div>
                 </div>
                 <!-- end Modal sukses-->
-
-                <!-- Modal unit-->
-                <div class="modal fade" id="satuanModal" tabindex="-1" role="dialog" aria-labelledby="satuanModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Atur Satuan</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="list-unit"></div>
-                                <form class="form-header" action="javascript:void(0)" id="form-unit">
-                                    <input id="input-unit" class="au-input au-input--full" type="text"
-                                        placeholder="Masukkan nama satuan..." />
-                                    <button class="au-btn--submit" id="btn-add-unit">
-                                        <i class="zmdi zmdi-plus"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" id="btn-save-unit"
-                                    data-dismiss="modal">
-                                    <i class="fa fa-save"></i> Simpan
-                                </button>
-                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
-                                    <i class="fa fa-ban"></i> Tutup
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end Modal unit-->
             </div>
         </div>
     </div>

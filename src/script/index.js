@@ -12,6 +12,8 @@ const data = []; data.length = 31; data.fill(0);
 const getOverview = async () => {
     //load unit
     apiServices.getUnit();
+    //load product
+    apiServices.getAllProduct();
 
     const result = await apiServices.getOverview();
     if (result.success) {
