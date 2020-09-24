@@ -14665,3 +14665,12 @@ section {
 .select2 {
     width:100%!important;
 }
+
+.container-btn {
+    position: relative;
+}
+
+.btn-btm {
+    position: absolute;
+    bottom: 0;
+}

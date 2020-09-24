@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         $('#info-price').html("");
         $('#info-unit').html("");
         $('#qyt-add').val(1);
-        $('#discount-add').val(0);
+        $('#discount-add').val();
     });
     $('.js-example-basic-single').on('change', function () {
         $('#qyt-add, #discount-add').prop("disabled", false);
@@ -47,14 +47,14 @@ document.addEventListener("DOMContentLoaded", () => {
         $('#info-price').html(pricePerUnit * $('#qyt-add').val())
     });
     $('#btn-add').on('click', () => {
-        objSelected.total = parseInt($('#info-price').html());
+        const discount = parseInt($('#discount-add').val() || 0)
+        const price = parseInt($('#info-price').html()) - parseInt($('#discount-add').val() || 0);
+        const qyt = parseInt($('#qyt-add').val());
+        objSelected.total = price;
         listItem.push(objSelected);
-        const discount = $('#discount-add').val();
-        const price = $('#info-price').html();
-        const qyt = $('#qyt-add').val();
         let innerListItem = $('tbody').html();
         innerListItem = innerListItem + `
-                <tr class="tr-shadow">
+            <tr class="tr-shadow" id="container${objSelected.id}">
                 <td id="name${objSelected.id}">${objSelected.name}</td>
                 <td id="qyt${objSelected.id}">${qyt}</td>
                 <td id="unit${objSelected.id}">${objSelected.unit}</td>
@@ -76,8 +76,59 @@ document.addEventListener("DOMContentLoaded", () => {
         $('tbody').html(innerListItem);
         countTotal()
     });
+
+    //edit
+    let object;
+    $("#editBarangModal").on('show.bs.modal', function () {
+        const id = $('#btn-edit').parent().prop('id');
+        object = getObject(id);
+        $("#qyt-edit").on('change', () => {
+            $('#sale-edit').html(parseInt(object.price_sale.replace('$', '').replace('.00', '').replace(',', '')) * $('#qyt-edit').val())
+        });
+    });
+
+    $('#btn-edit').on('click', () => {
+        const id = $('#btn-edit').parent().prop('id');
+        const discount = parseInt($('#discount-edit').val() || 0);
+        const price = parseInt($('#sale-edit').html()) - parseInt($('#discount-edit').val() || 0);
+        const qyt = parseInt($('#qyt-edit').val());
+        //remove old object
+        delete listItem[listItem.indexOf(object)];
+        //add new object
+        object.total = price;
+        listItem.push(object);
+
+        $(`#qyt${id}`).html(qyt);
+        $(`#discount${id}`).html(discount);
+        $(`#total${id}`).html(price);
+
+        countTotal()
+    });
+
+    //delete
+    let objectDelete;
+    $("#deleteBarangModal").on('show.bs.modal', () => {
+        const id = $('#btn-delete').parent().prop('id');
+        objectDelete = getObject(id);
+    });
+
+    $("#btn-delete").on('click', () => {
+        delete listItem[listItem.indexOf(objectDelete)];
+        $(`#container${objectDelete.id}`).remove();
+        countTotal();
+    })
 });
 
 function countTotal() {
-    console.log(listItem.reduce((a, b) => { return (a.total + b.total); }, 0));
+    $('#total').html(listItem.reduce((a, b) => { return (a + b.total); }, 0));
+}
+
+function getObject(id) {
+    let object;
+    listItem.forEach(element => {
+        if (element.id == parseInt(id)) {
+            object = element;
+        }
+    });
+    return object;
 }

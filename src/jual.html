@@ -155,17 +155,19 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <div class="table-data__tool">
-                                    <div class="table-data__tool-left">
-                                        <button class="au-btn au-btn-icon au-btn--green au-btn--small"
-                                            data-toggle="modal" data-target="#tambahBarangModal">
-                                            <i class="zmdi zmdi-plus"></i>Tambah</button>
-                                        <button class="au-btn au-btn-icon au-btn--blue au-btn--small"
-                                            data-toggle="modal" data-target="#tambahBarangModal">
-                                            <i class="zmdi zmdi-save"></i>Simpan</button>
+                                    <div class="table-data__tool-left w-50 container-btn">
+                                        <div class="btn-btm">
+                                            <button class="au-btn au-btn-icon au-btn--green au-btn--small"
+                                                data-toggle="modal" data-target="#tambahBarangModal">
+                                                <i class="zmdi zmdi-plus"></i>Tambah</button>
+                                            <button class="au-btn au-btn-icon au-btn--blue au-btn--small"
+                                                data-toggle="modal" data-target="#tambahBarangModal">
+                                                <i class="zmdi zmdi-save"></i>Simpan</button>
+                                        </div>
                                     </div>
-                                    <div class="table-data__tool-right">
-                                        <p class="text-md-right font-weight-bold">Total</p>
-                                        <h1 id="total" class="text-info">Rp0,00</h1>
+                                    <div class="table-data__tool-right w-50 bg-white p-3 rounded">
+                                        <p class="text-md-left font-weight-bold">Total</p>
+                                        <h1 id="total" class="text-md-right text-info">0</h1>
                                     </div>
                                 </div>
                                 <div class="table-responsive table--no-card mb-4">
@@ -261,7 +263,7 @@
                                                     <i>Rp</i>
                                                 </div>
                                                 <input type="number" id="discount-add" name="input3-group1"
-                                                    placeholder="0" value="0" min="0" class="form-control" disabled>
+                                                    placeholder="0" min="0" class="form-control" disabled>
                                                 <div class="input-group-addon">,00</div>
                                             </div>
                                         </div>
@@ -281,6 +283,85 @@
                     </div>
                 </div>
                 <!-- end Modal tambah-->
+
+                <!-- Modal edit-->
+                <div class="modal fade" id="editBarangModal" tabindex="-1" role="dialog"
+                    aria-labelledby="editBarangModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Ubah Pembelian</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="post" class="form-horizontal">
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Nama barang</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <label for="input-small" id="name-edit"" class="
+                                                form-control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Banyak barang</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <input type="number" id="qyt-edit" name="input-small" placeholder="" min="0"
+                                                class="input-sm form-control-sm form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Satuan</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <label for="input-small" id="unit-edit"" class="
+                                                form-control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Harga</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <label for="input-small" id="sale-edit"" class="
+                                                form-control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Diskon</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i>Rp</i>
+                                                </div>
+                                                <input type="number" id="discount-edit" name="input3-group1"
+                                                    placeholder="0" min="0" class="form-control">
+                                                <div class="input-group-addon">,00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" id="btn-edit" data-dismiss="modal">
+                                    <i class="fa fa-save"></i> Simpan
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
+                                    <i class="fa fa-ban"></i> Tutup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Modal edit-->
 
                 <!-- Modal delete-->
                 <div class="modal fade" id="deleteBarangModal" tabindex="-1" role="dialog"
@@ -391,13 +472,11 @@
     <script src="src/default/js/main.js"></script>
     <script>
         function showModal(id) {
-            $('#name-edit').val($(`#name${id}`).html());
+            $('#name-edit').html($(`#name${id}`).html());
             $('#qyt-edit').val($(`#qyt${id}`).html());
-            $("#unit-edit option").filter(function () {
-                return this.text == $(`#unit${id}`).html();
-            }).prop('selected', true);
-            $('#buy-edit').val($(`#buy${id}`).html().replace("Rp", "").replace(",00", "").replace(".", ""));
-            $('#sale-edit').val($(`#sale${id}`).html().replace("Rp", "").replace(",00", "").replace(".", ""));
+            $("#unit-edit").html($(`#unit${id}`).html());
+            $('#sale-edit').html(parseInt($(`#sale${id}`).html()) * parseInt($(`#qyt${id}`).html()));
+            $('#discount-edit').val($(`#discount${id}`).html());
 
             //set id to parent button
             $('#btn-edit').parent().attr("id", `${id}`)
