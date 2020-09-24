@@ -29,10 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
         $('#info-price').html("");
         $('#info-unit').html("");
         $('#qyt-add').val(1);
-        $('#discount-add').val();
+        $('#discount-add').val("");
     });
     $('.js-example-basic-single').on('change', function () {
-        $('#qyt-add, #discount-add').prop("disabled", false);
+        $('#qyt-add, #discount-add, #btn-add').prop("disabled", false);
         objSelected = result.filter(obj => { return obj.id == parseInt(this.value) })[0];
         if (objSelected != null) {
             pricePerUnit = parseInt(objSelected.price_sale.replace("$", "").replace(".00", "").replace(",", ""));
@@ -120,7 +120,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function countTotal() {
-    $('#total').html(listItem.reduce((a, b) => { return (a + b.total); }, 0));
+    console.log(listItem);
+    let total = 0;
+    listItem.forEach(element => {
+        total = total + parseInt(element.total);
+    });
+    $('#total').html(total);
 }
 
 function getObject(id) {
