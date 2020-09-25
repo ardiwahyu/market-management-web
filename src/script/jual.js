@@ -27,7 +27,7 @@ const addSale = async (body) => {
         if (resultAddSale.success) {
             $('#text-success').html('Berhasil menyimpan pembelian!');
             $('#btn-refresh').click(function () {
-                window.location.href = `${window.location.origin}/item.html`;
+                window.location.href = `${window.location.origin}/jual.html`;
             });
             $('#successModal').modal('show');
         }
@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const discount = parseInt($('#discount-add').val() || 0)
         const price = parseInt($('#info-price').html()) - parseInt($('#discount-add').val() || 0);
         const qyt = parseInt($('#qyt-add').val());
+        objSelected.qyt = qyt;
         objSelected.total = price;
         objSelected.discount = discount;
         listItem.push(objSelected);
@@ -113,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //remove old object
         delete listItem[listItem.indexOf(object)];
         //add new object
+        object.qyt = qyt;
         object.total = price;
         object.discount = discount;
         listItem.push(object);
