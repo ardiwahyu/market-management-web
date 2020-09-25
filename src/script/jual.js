@@ -20,6 +20,23 @@ const renderName = async () => {
     $('#name-add').html(innerName);
 }
 
+const addSale = async (body) => {
+    let resultAddSale;
+    try {
+        resultAddSale = await apiServices.addSale(body);
+        if (resultAddSale.success) {
+            $('#text-success').html('Berhasil menyimpan pembelian!');
+            $('#btn-refresh').click(function () {
+                window.location.href = `${window.location.origin}/item.html`;
+            });
+            $('#successModal').modal('show');
+        }
+    } catch (error) {
+        $('#text-gagal').html('Gagal memperbarui unit, Internal Server Error!')
+        $('#gagalModal').modal('show');
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     renderName();
     let pricePerUnit; let objSelected;
@@ -51,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const price = parseInt($('#info-price').html()) - parseInt($('#discount-add').val() || 0);
         const qyt = parseInt($('#qyt-add').val());
         objSelected.total = price;
+        objSelected.discount = discount;
         listItem.push(objSelected);
         let innerListItem = $('tbody').html();
         innerListItem = innerListItem + `
@@ -96,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         delete listItem[listItem.indexOf(object)];
         //add new object
         object.total = price;
+        object.discount = discount;
         listItem.push(object);
 
         $(`#qyt${id}`).html(qyt);
@@ -117,10 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
         $(`#container${objectDelete.id}`).remove();
         countTotal();
     })
+
+    //save
+    $('#btn-save').on('click', () => {
+        addSale(listItem);
+    });
 });
 
 function countTotal() {
-    console.log(listItem);
     let total = 0;
     listItem.forEach(element => {
         total = total + parseInt(element.total);

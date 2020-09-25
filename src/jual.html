@@ -161,7 +161,7 @@
                                                 data-toggle="modal" data-target="#tambahBarangModal">
                                                 <i class="zmdi zmdi-plus"></i>Tambah</button>
                                             <button class="au-btn au-btn-icon au-btn--blue au-btn--small"
-                                                data-toggle="modal" data-target="#tambahBarangModal">
+                                                data-toggle="modal" data-target="#konfirmasiModal">
                                                 <i class="zmdi zmdi-save"></i>Simpan</button>
                                         </div>
                                     </div>
@@ -223,7 +223,7 @@
                                         <div class="col col-sm-6">
                                             <select id="name-add"
                                                 class="form-control-sm form-control js-example-basic-single">
-                                                <option value="-1" selected>Pilih nama barang...</option>
+                                                <option value="-1" disabled selected>Pilih nama barang...</option>
                                             </select>
                                         </div>
                                     </div>
@@ -391,6 +391,33 @@
                     </div>
                 </div>
                 <!-- end Modal delete-->
+
+                <!-- Modal konfirmasi-->
+                <div class="modal fade" id="konfirmasiModal" tabindex="-1" role="dialog"
+                    aria-labelledby="konfirmasiModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-primary">Konfirmasi!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="text-warning">Apakah anda yakin untuk menyimpan data?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-sm" id="btn-save" data-dismiss="modal">
+                                    <i class="fa fa-save"></i> Simpan
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
+                                    <i class="fa fa-ban"></i> Batal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Modal konfirmasi-->
 
                 <!-- Modal gagal-->
                 <div class="modal fade" id="gagalModal" tabindex="-1" role="dialog"
