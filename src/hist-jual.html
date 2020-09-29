@@ -8,7 +8,7 @@
     <meta name="author" content="Wahyu Ardiansyah">
 
     <!-- Title Page-->
-    <title>Pencatatan Penjualan</title>
+    <title>Riwayat Penjualan</title>
 
     <!-- Fontfaces CSS-->
     <link href="src/default/css/font-face.css" rel="stylesheet" media="all">
@@ -32,6 +32,7 @@
     <!-- Main CSS-->
     <link href="src/default/css/theme.css" rel="stylesheet" media="all">
 
+    <link href="src/default/date-picker/dist/css/datepicker.css" rel="stylesheet">
 </head>
 
 <body class="animsition">
@@ -63,7 +64,7 @@
                             <a href="item.html">
                                 <i class="fas fa-table"></i>Daftar Barang</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="jual.html">
                                 <i class="fas fa-money-bill-alt"></i>Penjualan</a>
                         </li>
@@ -71,11 +72,11 @@
                             <a href="expense.html">
                                 <i class="fas fa-cart-arrow-down"></i>Pengeluaran</a>
                         </li>
-                        <li class="has-sub">
+                        <li class="has-sub active">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-calendar-alt"></i>Riwayat</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
+                                <li class="active">
                                     <a href="hist-jual.html">Penjualan</a>
                                 </li>
                                 <li>
@@ -107,7 +108,7 @@
                             <a href="item.html">
                                 <i class="fas fa-table"></i>Daftar Barang</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="jual.html">
                                 <i class="fas fa-money-bill-alt"></i>Penjualan</a>
                         </li>
@@ -115,11 +116,11 @@
                             <a href="expense.html">
                                 <i class="fas fa-cart-arrow-down"></i>Pengeluaran</a>
                         </li>
-                        <li class="has-sub">
+                        <li class="has-sub active">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-calendar-alt"></i>Riwayat</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
+                                <li class="active">
                                     <a href="hist-jual.html">Penjualan</a>
                                 </li>
                                 <li>
@@ -155,19 +156,25 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <div class="table-data__tool">
-                                    <div class="table-data__tool-left w-50 container-btn">
-                                        <div class="btn-btm">
-                                            <button class="au-btn au-btn-icon au-btn--green au-btn--small"
-                                                data-toggle="modal" data-target="#tambahBarangModal">
-                                                <i class="zmdi zmdi-plus"></i>Tambah</button>
-                                            <button class="au-btn au-btn-icon au-btn--blue au-btn--small"
-                                                data-toggle="modal" data-target="#konfirmasiModal">
-                                                <i class="zmdi zmdi-save"></i>Simpan</button>
+                                    <div class="table-data__tool-left w-50 m-r-100">
+                                        <p class="text-md-left font-weight-bold">Tanggal awal</p>
+                                        <div class="input-group date">
+                                            <input type='text' class='form-control datepicker-here' id="startDate"
+                                                data-position='bottom left'>
+                                            <div class="input-group-addon">
+                                                <span class="zmdi zmdi-calendar"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="table-data__tool-right w-50 bg-white p-3 rounded">
-                                        <p class="text-md-left font-weight-bold">Total</p>
-                                        <h1 id="total" class="text-md-right text-info">0</h1>
+                                    <div class=" table-data__tool-right w-50 m-l-100">
+                                        <p class="text-md-right font-weight-bold">Tanggal akhir</p>
+                                        <div class="input-group date">
+                                            <input type='text' class='form-control datepicker-here' id="endDate"
+                                                data-position='bottom left'>
+                                            <div class="input-group-addon">
+                                                <span class="zmdi zmdi-calendar"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="table-responsive table--no-card mb-4">
@@ -176,11 +183,10 @@
                                             <tr>
                                                 <th>Nama barang</th>
                                                 <th>Banyak</th>
-                                                <th>Satuan</th>
                                                 <th>Harga</th>
                                                 <th>Diskon</th>
                                                 <th>Total</th>
-                                                <th></th>
+                                                <th>Tanggal</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -218,18 +224,21 @@
                                 <form action="" method="post" class="form-horizontal" id="add-product">
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Nama barang</label>
+                                            <label for="input-small" class=" form-control-label">Nama
+                                                barang</label>
                                         </div>
                                         <div class="col col-sm-6">
                                             <select id="name-add"
                                                 class="form-control-sm form-control js-example-basic-single">
-                                                <option value="-1" disabled selected>Pilih nama barang...</option>
+                                                <option value="-1" disabled selected>Pilih nama barang...
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Banyak barang</label>
+                                            <label for="input-small" class=" form-control-label">Banyak
+                                                barang</label>
                                         </div>
                                         <div class="col col-sm-6">
                                             <input type="number" id="qyt-add" name="input-small" value="1" min="1"
@@ -300,7 +309,8 @@
                                 <form action="" method="post" class="form-horizontal">
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Nama barang</label>
+                                            <label for="input-small" class=" form-control-label">Nama
+                                                barang</label>
                                         </div>
                                         <div class="col col-sm-6">
                                             <label for="input-small" id="name-edit"" class="
@@ -309,7 +319,8 @@
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Banyak barang</label>
+                                            <label for="input-small" class=" form-control-label">Banyak
+                                                barang</label>
                                         </div>
                                         <div class="col col-sm-6">
                                             <input type="number" id="qyt-edit" name="input-small" placeholder="" min="0"
@@ -521,6 +532,8 @@
             $(`#deleteBarangModal`).modal('show');
         }
     </script>
+    <script src="src/default/date-picker/dist/js/datepicker.js"></script>
+    <script src="src/default/date-picker/dist/js/i18n/datepicker.en.js"></script>
 </body>
 
 </html>

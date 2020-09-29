@@ -8,7 +8,7 @@
     <meta name="author" content="Wahyu Ardiansyah">
 
     <!-- Title Page-->
-    <title>Pencatatan Penjualan</title>
+    <title>Pencatatan Pengeluaran</title>
 
     <!-- Fontfaces CSS-->
     <link href="src/default/css/font-face.css" rel="stylesheet" media="all">
@@ -63,11 +63,11 @@
                             <a href="item.html">
                                 <i class="fas fa-table"></i>Daftar Barang</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="jual.html">
                                 <i class="fas fa-money-bill-alt"></i>Penjualan</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="expense.html">
                                 <i class="fas fa-cart-arrow-down"></i>Pengeluaran</a>
                         </li>
@@ -107,11 +107,11 @@
                             <a href="item.html">
                                 <i class="fas fa-table"></i>Daftar Barang</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="jual.html">
                                 <i class="fas fa-money-bill-alt"></i>Penjualan</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="expense.html">
                                 <i class="fas fa-cart-arrow-down"></i>Pengeluaran</a>
                         </li>
@@ -155,31 +155,21 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <div class="table-data__tool">
-                                    <div class="table-data__tool-left w-50 container-btn">
-                                        <div class="btn-btm">
-                                            <button class="au-btn au-btn-icon au-btn--green au-btn--small"
-                                                data-toggle="modal" data-target="#tambahBarangModal">
-                                                <i class="zmdi zmdi-plus"></i>Tambah</button>
-                                            <button class="au-btn au-btn-icon au-btn--blue au-btn--small"
-                                                data-toggle="modal" data-target="#konfirmasiModal">
-                                                <i class="zmdi zmdi-save"></i>Simpan</button>
-                                        </div>
+                                    <div class="table-data__tool-left">
                                     </div>
-                                    <div class="table-data__tool-right w-50 bg-white p-3 rounded">
-                                        <p class="text-md-left font-weight-bold">Total</p>
-                                        <h1 id="total" class="text-md-right text-info">0</h1>
+                                    <div class="table-data__tool-right">
+                                        <button class="au-btn au-btn-icon au-btn--green au-btn--small"
+                                            data-toggle="modal" data-target="#tambahPengeluaranModal">
+                                            <i class="zmdi zmdi-plus"></i>Tambah pengeluaran</button>
                                     </div>
                                 </div>
                                 <div class="table-responsive table--no-card mb-4">
                                     <table class="table table-borderless table-data3">
                                         <thead>
                                             <tr>
-                                                <th>Nama barang</th>
-                                                <th>Banyak</th>
-                                                <th>Satuan</th>
-                                                <th>Harga</th>
-                                                <th>Diskon</th>
-                                                <th>Total</th>
+                                                <th>Nama Pengeluaran</th>
+                                                <th>Jumlah Pengeluaran</th>
+                                                <th>Detail</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -204,12 +194,12 @@
                 <!-- END PAGE CONTAINER-->
 
                 <!-- Modal tambah-->
-                <div class="modal fade" id="tambahBarangModal" tabindex="-1" role="dialog"
-                    aria-labelledby="tambahBarangModalLabel" aria-hidden="true">
+                <div class="modal fade" id="tambahPengeluaranModal" tabindex="-1" role="dialog"
+                    aria-labelledby="tambahPengeluaranModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="tambahBarangModalLabel">Tambah Pembelian</h5>
+                                <h5 class="modal-title" id="tambahPengeluaranModalLabel">Tambah Pengeluaran</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -218,61 +208,43 @@
                                 <form action="" method="post" class="form-horizontal" id="add-product">
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Nama barang</label>
+                                            <label for="input-small" class=" form-control-label">Nama
+                                                pengeluaran</label>
                                         </div>
                                         <div class="col col-sm-6">
-                                            <select id="name-add"
-                                                class="form-control-sm form-control js-example-basic-single">
-                                                <option value="-1" disabled selected>Pilih nama barang...</option>
-                                            </select>
+                                            <input type="text" id="name-add" name="input-small" placeholder=""
+                                                class="input-sm form-control-sm form-control">
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Banyak barang</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <input type="number" id="qyt-add" name="input-small" value="1" min="1"
-                                                placeholder="" class="input-sm form-control-sm form-control" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Satuan</label>
-                                        </div>
-                                        <div class="col col-sm-5">
-                                            <label id="info-unit" for="input-small" class=" form-control-label"></label>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Harga</label>
-                                        </div>
-                                        <div class="col col-sm-5">
-                                            <label id="info-price" for="input-small"
-                                                class=" form-control-label"></label>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Diskon</label>
+                                            <label for="input-small" class=" form-control-label">Jumlah
+                                                Pengeluaran</label>
                                         </div>
                                         <div class="col col-sm-6">
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i>Rp</i>
                                                 </div>
-                                                <input type="number" id="discount-add" name="input3-group1"
-                                                    placeholder="0" min="0" class="form-control" disabled>
+                                                <input type="number" id="sum-add" name="input3-group1" placeholder="0"
+                                                    min="0" class="form-control">
                                                 <div class="input-group-addon">,00</div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Detail</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <textarea name="textarea-input" id="detail-add" rows="5" placeholder=""
+                                                class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" id="btn-add" data-dismiss="modal"
-                                    disabled>
+                                <button type="submit" class="btn btn-primary btn-sm" id="btn-add" data-dismiss="modal">
                                     <i class="fa fa-save"></i> Simpan
                                 </button>
                                 <button type="reset" class="btn btn-danger btn-sm" id="btn-close-add"
@@ -285,68 +257,52 @@
                 </div>
                 <!-- end Modal tambah-->
 
-                <!-- Modal edit-->
-                <div class="modal fade" id="editBarangModal" tabindex="-1" role="dialog"
-                    aria-labelledby="editBarangModalLabel" aria-hidden="true">
+                <!-- Modal ubah-->
+                <div class="modal fade" id="ubahPengeluaranModal" tabindex="-1" role="dialog"
+                    aria-labelledby="ubahPengeluaranModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Ubah Pembelian</h5>
+                                <h5 class="modal-title" id="ubahPengeluaranModalLabel">Ubah Pengeluaran</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="" method="post" class="form-horizontal">
+                                <form action="" method="post" class="form-horizontal" id="add-product">
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Nama barang</label>
+                                            <label for="input-small" class=" form-control-label">Nama
+                                                pengeluaran</label>
                                         </div>
                                         <div class="col col-sm-6">
-                                            <label for="input-small" id="name-edit"" class="
-                                                form-control-label"></label>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Banyak barang</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <input type="number" id="qyt-edit" name="input-small" placeholder="" min="0"
+                                            <input type="text" id="name-edit" name="input-small" placeholder=""
                                                 class="input-sm form-control-sm form-control">
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Satuan</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <label for="input-small" id="unit-edit"" class="
-                                                form-control-label"></label>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Harga</label>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <label for="input-small" id="sale-edit"" class="
-                                                form-control-label"></label>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-sm-5">
-                                            <label for="input-small" class=" form-control-label">Diskon</label>
+                                            <label for="input-small" class=" form-control-label">Jumlah
+                                                Pengeluaran</label>
                                         </div>
                                         <div class="col col-sm-6">
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i>Rp</i>
                                                 </div>
-                                                <input type="number" id="discount-edit" name="input3-group1"
-                                                    placeholder="0" min="0" class="form-control">
+                                                <input type="number" id="sum-edit" name="input3-group1" placeholder="0"
+                                                    min="0" class="form-control">
                                                 <div class="input-group-addon">,00</div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-sm-5">
+                                            <label for="input-small" class=" form-control-label">Detail</label>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <textarea name="textarea-input" id="detail-edit" rows="5" placeholder=""
+                                                class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </form>
@@ -355,18 +311,19 @@
                                 <button type="submit" class="btn btn-primary btn-sm" id="btn-edit" data-dismiss="modal">
                                     <i class="fa fa-save"></i> Simpan
                                 </button>
-                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
+                                <button type="reset" class="btn btn-danger btn-sm" id="btn-close-add"
+                                    data-dismiss="modal">
                                     <i class="fa fa-ban"></i> Tutup
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- end Modal edit-->
+                <!-- end Modal ubah-->
 
                 <!-- Modal delete-->
-                <div class="modal fade" id="deleteBarangModal" tabindex="-1" role="dialog"
-                    aria-labelledby="editBarangModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deletePengeluaranModal" tabindex="-1" role="dialog"
+                    aria-labelledby="editPengeluaranModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -391,33 +348,6 @@
                     </div>
                 </div>
                 <!-- end Modal delete-->
-
-                <!-- Modal konfirmasi-->
-                <div class="modal fade" id="konfirmasiModal" tabindex="-1" role="dialog"
-                    aria-labelledby="konfirmasiModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-primary">Konfirmasi!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p id="text-warning">Apakah anda yakin untuk menyimpan data?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success btn-sm" id="btn-save" data-dismiss="modal">
-                                    <i class="fa fa-save"></i> Simpan
-                                </button>
-                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
-                                    <i class="fa fa-ban"></i> Batal
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end Modal konfirmasi-->
 
                 <!-- Modal gagal-->
                 <div class="modal fade" id="gagalModal" tabindex="-1" role="dialog"
@@ -470,6 +400,41 @@
                     </div>
                 </div>
                 <!-- end Modal sukses-->
+
+                <!-- Modal unit-->
+                <div class="modal fade" id="satuanModal" tabindex="-1" role="dialog" aria-labelledby="satuanModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Atur Satuan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="list-unit"></div>
+                                <form class="form-header" action="javascript:void(0)" id="form-unit">
+                                    <input id="input-unit" class="au-input au-input--full" type="text"
+                                        placeholder="Masukkan nama satuan..." />
+                                    <button class="au-btn--submit" id="btn-add-unit">
+                                        <i class="zmdi zmdi-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" id="btn-save-unit"
+                                    data-dismiss="modal">
+                                    <i class="fa fa-save"></i> Simpan
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
+                                    <i class="fa fa-ban"></i> Tutup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Modal unit-->
             </div>
         </div>
     </div>
@@ -500,16 +465,14 @@
     <script src="src/default/js/main.js"></script>
     <script>
         function showModal(id) {
-            $('#name-edit').html($(`#name${id}`).html());
-            $('#qyt-edit').val($(`#qyt${id}`).html());
-            $("#unit-edit").html($(`#unit${id}`).html());
-            $('#sale-edit').html(parseInt($(`#sale${id}`).html()) * parseInt($(`#qyt${id}`).html()));
-            $('#discount-edit').val($(`#discount${id}`).html());
+            $('#name-edit').val($(`#name${id}`).html());
+            $('#sum-edit').val(parseInt($(`#price${id}`).html()));
+            $('#detail-edit').val($(`#detail${id}`).html());
 
             //set id to parent button
             $('#btn-edit').parent().attr("id", `${id}`)
 
-            $(`#editBarangModal`).modal('show');
+            $(`#ubahPengeluaranModal`).modal('show');
         }
 
         function showWarning(id) {
@@ -518,7 +481,7 @@
             //set id to parent button
             $('#btn-delete').parent().attr("id", `${id}`)
 
-            $(`#deleteBarangModal`).modal('show');
+            $(`#deletePengeluaranModal`).modal('show');
         }
     </script>
 </body>

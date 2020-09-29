@@ -9,6 +9,9 @@ module.exports = {
         index: "./src/script/index.js",
         item: "./src/script/item.js",
         jual: "./src/script/jual.js",
+        expense: "./src/script/expense.js",
+        histJual: "./src/script/hist-jual.js",
+        histExpense: "./src/script/hist-expense.js",
         vendor: Object.keys(package.dependencies),
     },
     output: {
@@ -45,6 +48,21 @@ module.exports = {
             template: "./src/jual.html",
             filename: "jual.html",
             chunks: ["vendor", "jual"]
+        }),
+        new HtmlWebpackPlugin({
+            template: "./src/expense.html",
+            filename: "expense.html",
+            chunks: ["vendor", "expense"]
+        }),
+        new HtmlWebpackPlugin({
+            template: "./src/hist-jual.html",
+            filename: "hist-jual.html",
+            chunks: ["vendor", "histJual"]
+        }),
+        new HtmlWebpackPlugin({
+            template: "./src/hist-expense.html",
+            filename: "hist-expense.html",
+            chunks: ["vendor", "histExpense"]
         })
     ]
 };
