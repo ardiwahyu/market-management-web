@@ -1,5 +1,22 @@
 import apiServices from './services/api';
 
+const addExpense = async (body) => {
+    let resultAddSale;
+    try {
+        resultAddSale = await apiServices.addExpense(body);
+        if (resultAddSale.success) {
+            $('#text-success').html('Berhasil menyimpan pengeluaran!');
+            $('#btn-refresh').click(function () {
+                window.location.href = `${window.location.origin}/expense.html`;
+            });
+            $('#successModal').modal('show');
+        }
+    } catch (error) {
+        $('#text-gagal').html('Gagal menyimpan data, Internal Server Error!')
+        $('#gagalModal').modal('show');
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const listPengeluaran = [];
 
@@ -53,5 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const id = $('#btn-delete').parent().prop('id');
         delete listPengeluaran[id - 1];
         $(`#container${id}`).remove();
+    });
+
+    $('#btn-save').on('click', () => {
+        addExpense(listPengeluaran)
     });
 });

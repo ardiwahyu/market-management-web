@@ -160,7 +160,10 @@
                                     <div class="table-data__tool-right">
                                         <button class="au-btn au-btn-icon au-btn--green au-btn--small"
                                             data-toggle="modal" data-target="#tambahPengeluaranModal">
-                                            <i class="zmdi zmdi-plus"></i>Tambah pengeluaran</button>
+                                            <i class="zmdi zmdi-plus"></i>Tambah</button>
+                                        <button class="au-btn au-btn-icon au-btn--blue au-btn--small"
+                                            data-toggle="modal" data-target="#konfirmasiModal">
+                                            <i class="zmdi zmdi-save"></i>Simpan</button>
                                     </div>
                                 </div>
                                 <div class="table-responsive table--no-card mb-4">
@@ -349,6 +352,33 @@
                 </div>
                 <!-- end Modal delete-->
 
+                <!-- Modal konfirmasi-->
+                <div class="modal fade" id="konfirmasiModal" tabindex="-1" role="dialog"
+                    aria-labelledby="konfirmasiModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-primary">Konfirmasi!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="text-warning">Apakah anda yakin untuk menyimpan data?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-sm" id="btn-save" data-dismiss="modal">
+                                    <i class="fa fa-save"></i> Simpan
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
+                                    <i class="fa fa-ban"></i> Batal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Modal konfirmasi-->
+
                 <!-- Modal gagal-->
                 <div class="modal fade" id="gagalModal" tabindex="-1" role="dialog"
                     aria-labelledby="editBarangModalLabel" aria-hidden="true">
@@ -400,41 +430,6 @@
                     </div>
                 </div>
                 <!-- end Modal sukses-->
-
-                <!-- Modal unit-->
-                <div class="modal fade" id="satuanModal" tabindex="-1" role="dialog" aria-labelledby="satuanModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Atur Satuan</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="list-unit"></div>
-                                <form class="form-header" action="javascript:void(0)" id="form-unit">
-                                    <input id="input-unit" class="au-input au-input--full" type="text"
-                                        placeholder="Masukkan nama satuan..." />
-                                    <button class="au-btn--submit" id="btn-add-unit">
-                                        <i class="zmdi zmdi-plus"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" id="btn-save-unit"
-                                    data-dismiss="modal">
-                                    <i class="fa fa-save"></i> Simpan
-                                </button>
-                                <button type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">
-                                    <i class="fa fa-ban"></i> Tutup
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end Modal unit-->
             </div>
         </div>
     </div>
@@ -470,7 +465,7 @@
             $('#detail-edit').val($(`#detail${id}`).html());
 
             //set id to parent button
-            $('#btn-edit').parent().attr("id", `${id}`)
+            $('#btn-edit').parent().attr("id", `${id}`);
 
             $(`#ubahPengeluaranModal`).modal('show');
         }

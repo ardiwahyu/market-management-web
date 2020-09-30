@@ -201,6 +201,29 @@ class ApiServices {
                 });
         })
     }
+
+    static async addExpense(body) {
+        const searchParams = new URLSearchParams();
+        body.forEach(element => {
+            searchParams.append("body", JSON.stringify(element));
+        });
+
+        return new Promise((resolve, reject) => {
+            const url = `${BASE_URL}:${PORT}/api/v1/pengeluaran`
+            fetch(url, {
+                method: 'post',
+                body: searchParams
+            })
+                .then(status)
+                .then(json)
+                .then(function (data) {
+                    resolve(data);
+                })
+                .catch(function (data) {
+                    reject(data);
+                });
+        })
+    }
 }
 
 export default ApiServices;
