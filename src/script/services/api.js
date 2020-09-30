@@ -224,6 +224,21 @@ class ApiServices {
                 });
         })
     }
+
+    static async getSale(page, startDate, endDate) {
+        return new Promise((resolve, reject) => {
+            const url = `${BASE_URL}:${PORT}/api/v1/penjualan?page=${page || 1}&start_date=${startDate || 'now()'}&end_date=${endDate || 'now()'}`;
+            fetch(url)
+                .then(status)
+                .then(json)
+                .then(function (data) {
+                    resolve(data);
+                })
+                .catch(function (data) {
+                    reject(data);
+                });
+        })
+    }
 }
 
 export default ApiServices;

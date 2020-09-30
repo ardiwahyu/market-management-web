@@ -1,6 +1,6 @@
-function pagination(pageNow, totalPage, base) {
+function pagination(pageNow, totalPage, base, path, startDate, endDate) {
 
-    base = base + "/item.html?"
+    base = base + path + (startDate || "") + (endDate || "");
     const pagination = document.querySelector("#navigation");
     const paginationItem = document.querySelector(".pagination-item");
     let urlPrev, urlNext;
@@ -85,12 +85,14 @@ function pagination(pageNow, totalPage, base) {
 
         const next = document.querySelector("#next");
         const prev = document.querySelector("#previous");
-        if (pageNow == 1) {
-            prev.classList.add("disabled");
-            next.classList.remove("disabled");
-        } else if (pageNow == totalPage) {
-            prev.classList.remove("disabled");
-            next.classList.add("disabled");
+        if (next != null & prev != null) {
+            if (pageNow == 1) {
+                prev.classList.add("disabled");
+                next.classList.remove("disabled");
+            } else if (pageNow == totalPage) {
+                prev.classList.remove("disabled");
+                next.classList.add("disabled");
+            }
         }
     }
 

@@ -22,7 +22,7 @@ const getProduct = async (query) => {
     }
     dataTable = dataTable.concat(result.data);
     renderResult(dataTable);
-    pagination(result.page || 1, result.total_page || 1, window.location.origin);
+    pagination(result.page || 1, result.total_page || 1, window.location.origin, "/item.html?");
 
     showInfo.innerHTML = `Show ${result.data.length} from ${result.total_entry}`;
 
@@ -197,8 +197,8 @@ function renderResult(result) {
                 <td id="name${element.id}">${element.name}</td>
                 <td id="qyt${element.id}">${element.qyt}</td>
                 <td id="unit${element.id}">${element.unit}</td>
-                <td id="buy${element.id}">Rp${element.price_buy.replace('$', '').replace('.00', ',00').replace(',', '.')}</td>
-                <td id="sale${element.id}">Rp${element.price_sale.replace('$', '').replace('.00', ',00').replace(',', '.')}</td>
+                <td id="buy${element.id}">Rp${element.price_buy.replace('$', '').replace('.00', ',-').replace(',', '.')}</td>
+                <td id="sale${element.id}">Rp${element.price_sale.replace('$', '').replace('.00', ',-').replace(',', '.')}</td>
                 <td>
                     <div class="table-data-feature">
                         <button class="item" data-toggle="tooltip" data-placement="top" title="Ubah" onclick="showModal(${element.id})">

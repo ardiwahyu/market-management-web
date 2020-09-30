@@ -156,25 +156,26 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <div class="table-data__tool">
-                                    <div class="table-data__tool-left w-50 m-r-100">
-                                        <p class="text-md-left font-weight-bold">Tanggal awal</p>
+                                    <div class="table-data__tool-left w-70">
                                         <div class="input-group date">
                                             <input type='text' class='form-control datepicker-here' id="startDate"
                                                 data-position='bottom left'>
                                             <div class="input-group-addon">
                                                 <span class="zmdi zmdi-calendar"></span>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class=" table-data__tool-right w-50 m-l-100">
-                                        <p class="text-md-right font-weight-bold">Tanggal akhir</p>
-                                        <div class="input-group date">
-                                            <input type='text' class='form-control datepicker-here' id="endDate"
+                                            <div class="d-flex m-l-25">
+                                                <p class="align-self-center">sampai</p>
+                                            </div>
+                                            <input type='text' class='form-control datepicker-here m-l-25' id="endDate"
                                                 data-position='bottom left'>
                                             <div class="input-group-addon">
                                                 <span class="zmdi zmdi-calendar"></span>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class=" table-data__tool-right w-30 m-l-100">
+                                        <button class="au-btn au-btn-icon au-btn--green au-btn--small" id="refresh-btn">
+                                            <i class="zmdi zmdi-refresh"></i>Segarkan</button>
                                     </div>
                                 </div>
                                 <div class="table-responsive table--no-card mb-4">
